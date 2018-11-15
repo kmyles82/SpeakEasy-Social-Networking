@@ -2,11 +2,12 @@
 
 	$con = mysqli_connect('localhost','speakeasy','','speakeasy');
 
-if(mysqli_connect_errno()){
-	echo "Failed to connect: ".mysqli_connect_errno();
-}
+	if(mysqli_connect_errno()){
+		echo "Failed to connect: ".mysqli_connect_errno();
+	}
 
-$query = mysqli_query($con, "INSERT INTO test VALUES('','kerry')");
+//$query = mysqli_query($con, "INSERT INTO test VALUES('','kerry')");
+
 
 ?>
 
