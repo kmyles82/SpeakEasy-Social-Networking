@@ -16,7 +16,7 @@ $email2 = ""; //confirm email
 $password = ""; //password
 $password2 = ""; //confirm password
 $date = ""; //sign up date
-$error_array = ""; //hold error messages
+$error_array = array(); //hold error messages
 
 if(isset($_POST['register_button'])){
 
@@ -67,39 +67,112 @@ if(isset($_POST['register_button'])){
 			$num_rows = mysqli_num_rows($email_check);
 			
 			if($num_rows > 0){
-				echo "Email already in use";
+				array_push($error_array, "Email already in use<br>");
 			} 
 			
 		} else {
-			echo "Invalid format";
+			array_push($error_array,"Invalid email format</br>");
 		}
 		
 	} else {
-		echo "Emails don't match";
+		array_push($error_array,"Emails don't match</br>");
 	}
 	
 	if(strlen($fname) > 25 || strlen($fname) < 2){
-		echo "Your first name must between 2 and 25 characters";
+		array_push($error_array,"Your first name must between 2 and 25 characters</br>");
 	}
 	
 	if(strlen($lname) > 25 || strlen($lname) < 2){
-		echo "Your last name must between 2 and 25 characters";
+		array_push($error_array,"Your last name must between 2 and 25 characters</br>");
 	}
 	
-	if(password != password2){
-		echo "Your passwords do not match";
+	if($password != $password2){
+		array_push($error_array, "Your passwords do not match</br>");
 	} else {
 		if(preg_match('/[^A-Za-z0-9]/', $password)){
-			#
-			echo "Your password can only contain english characters or numbers";
+			array_push($error_array, "Your password can only contain english characters or numbers</br>");
 		}
 	}
 	
 	if(strlen($password > 30 || strlen($password) < 5)){
-		echo "Your password must be between 5 and 30 characters";
+		array_push($error_array, "Your password must be between 5 and 30 characters</br>");
 	}
 	
-	
+	if(empty($error_array)){
+		$password = md5($password); //Encrypt password before sending to database
+		
+		//Generate username by concatenating first name and last name
+		$username = strtolower($fname."_".$lname);
+		$check_username_query = mysqli_query($con, "SELECT username FROM users WHERE username='$username'");
+		
+		$i = 0;
+		//if username exists add number to username
+		while(mysqli_num_rows($check_username_query) != 0 ){
+			$i++;//add 1 to i
+			$username = $username."_".$i;
+			$check_username_query = mysqli_query($con,"SELECT username FROM users WHERE username='$username'");
+		}
+		
+		//profile picture assignment
+		$rand = rand(1,16);//create random between 1 and 16
+		$profile_pic = "";
+		switch($rand){
+			case 1:
+				$profile_pic = "assets/images/profile_pics/defaults/head_alizarin.png";
+				break;
+			case 2:
+				$profile_pic = "assets/images/profile_pics/defaults/head_amethyst.png";
+				break;
+			case 3:
+				$profile_pic = "assets/images/profile_pics/defaults/head_belize_hole.png";
+				break;
+			case 4:
+				$profile_pic = "assets/images/profile_pics/defaults/head_carrot.png";
+				break;
+			case 5:
+				$profile_pic = "assets/images/profile_pics/defaults/head_deep_blue.png";
+				break;
+			case 6:
+				$profile_pic = "assets/images/profile_pics/defaults/head_emerald.png";
+				break;
+			case 7:
+				$profile_pic = "assets/images/profile_pics/defaults/head_green_sea.png";
+				break;
+			case 8:
+				$profile_pic = "assets/images/profile_pics/defaults/head_nephritis.png";
+				break;
+			case 9:
+				$profile_pic = "assets/images/profile_pics/defaults/head_pete_river.png";
+				break;
+			case 10:
+				$profile_pic = "assets/images/profile_pics/defaults/head_pomegranate.png";
+				break;
+			case 11:
+				$profile_pic = "assets/images/profile_pics/defaults/head_pumpkin.png";
+				break;
+			case 12:
+				$profile_pic = "assets/images/profile_pics/defaults/head_red.png";
+				break;
+			case 13:
+				$profile_pic = "assets/images/profile_pics/defaults/head_sun_flower.png";
+				break;
+			case 14:
+				$profile_pic = "assets/images/profile_pics/defaults/head_turqoise.png";
+				break;
+			case 15:
+				$profile_pic = "assets/images/profile_pics/defaults/head_wet_asphalt.png";
+				break;
+			case 16:
+				$profile_pic = "assets/images/profile_pics/defaults/head_wisteria.png";
+				break;
+			default:
+				break;
+		}
+		
+		$query = mysqli_query($con, "INSERT INTO users VALUES('','$fname','$lname','$username','$email','$password','$date','$profile_pic','0','0','no',',')");
+		array_push($error_array, "<span style='color: #14C800;'>You're all set, go ahead and login!</span></br>");
+		
+	}
 	
 }
 
@@ -127,32 +200,61 @@ if(isset($_POST['register_button'])){
 			echo $_SESSION['reg_fname'];
 		}	   
 	?>" required>
+	<?php 
+		if(in_array("Your first name must between 2 and 25 characters</br>", $error_array)){ 
+			echo "Your first name must between 2 and 25 characters</br>";} 
+	?>
+	
 	<input type="text" class="input-field" name="reg_lname" placeholder="Last Name" value="<?php
 		if(isset($_SESSION['reg_lname'])){
 			echo $_SESSION['reg_lname'];
 		}	   
 	?>" required>
+	<?php 
+		if(in_array("Your last name must between 2 and 25 characters</br>", $error_array)){ 
+			echo "Your last name must between 2 and 25 characters</br>";} 
+	?>
+	
 	<input type="email" class="input-field" name="reg_email" placeholder="Email" value="<?php
 		if(isset($_SESSION['reg_email'])){
 			echo $_SESSION['reg_email'];
 		}	   
 	?>" required>
+	
 	<input type="email" class="input-field" name="reg_email2" placeholder="Confirm Email" value="<?php
 		if(isset($_SESSION['reg_email2'])){
 			echo $_SESSION['reg_email2'];
 		}	   
 	?>" required>
-	<input type="password" class="input-field" name="reg_password" placeholder="password" value="<?php
-		if(isset($_SESSION['reg_password'])){
-			echo $_SESSION['reg_password'];
-		}	   
-	?>" required>
-	<input type="password" class="input-field" name="reg_password2" placeholder="Confirm Password" value="<?php
-		if(isset($_SESSION['reg_password2'])){
-			echo $_SESSION['reg_password2'];
-		}	   
-	?>" required>
+	<?php 
+		if(in_array("Email already in use<br>", $error_array)){ 
+			echo "Email already in use<br>";
+		} else if(in_array("Invalid format</br>", $error_array)){ 
+			echo "Invalid format</br>";
+		} else if(in_array("Emails don't match</br>", $error_array)){ 
+			echo "Emails don't match</br>";
+		} 
+	?>
+	
+	<input type="password" class="input-field" name="reg_password" placeholder="password" required>
+	<input type="password" class="input-field" name="reg_password2" placeholder="Confirm Password" required>
+	<?php 
+		if(in_array("Your passwords do not match</br>", $error_array)){ 
+			echo "Your passwords do not match</br>";
+		} else if(in_array("Your password can only contain english characters or numbers</br>", $error_array)){ 
+			echo "Your password can only contain english characters or numbers</br>";
+		} else if(in_array("Your password must be between 5 and 30 characters</br>", $error_array)){ 
+			echo "Your password must be between 5 and 30 characters</br>";
+		} 
+	?>
+	
 	<input type="submit" name="register_button" value="Register">
+	<br>
+	<?php
+		if(in_array("<span style='color: #14C800;'>You're all set, go ahead and login!</span></br>", $error_array)){ 
+			echo "<span style='color: #14C800;'>You're all set, go ahead and login!</span></br>";
+		} 
+	?>
 
 </form>
 	
