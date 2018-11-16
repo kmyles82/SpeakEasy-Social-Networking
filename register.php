@@ -21,9 +21,25 @@ require'includes/form_handlers/login_handler.php';
 	<!-- Compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link rel="stylesheet" href="assets/css/register_style.css" type="text/css">
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+
+<?php
+	if(isset($_POST['register_button'])){
+		echo '
+		<script>
+
+			$(document).ready(function(){
+
+				$("#first").hide();
+				$("#second").show();
+			});
+
+		</script>
+		';
+	}
+?>
  
  <div class="wrapper">
 	 
@@ -35,62 +51,78 @@ require'includes/form_handlers/login_handler.php';
 	 </div>
 	<div id="first">
 			<form action="register.php" method="post">
-		
-				<input type="email" name="log_email" placeholder="Email Address" value="<?php
+				<div class="input-field col s12">
+				<input type="email" name="log_email" id="log_email" value="<?php
 					if(isset($_SESSION['log_email'])){
 						echo $_SESSION['log_email'];
 					}	   
 				?>" required>
+				<label for="log_email">Email Address</label>
+				</div>
+				
+				<div class="input-field col s12">
+				<input type="password" name="log_password" id="log_password">
+				<label for="log_password">Password</label>
+			<?php
+				if(in_array("Email or password was incorrect.<br>", $error_array)){
+					echo "Email or password was incorrect.<br>";
+				}
+			?>
+				</div>
+				
 				<br>
-				<input type="password" name="log_password" placeholder="Password">
-			
-				<?php
-					if(in_array("Email or password was incorrect.<br>", $error_array)){
-						echo "Email or password was incorrect.<br>";
-					}
-				?>
+				<input type="submit" class="btn waves-effect waves-light" name="login_button" value="Login">
 				<br>
-				<input type="submit" name="login_button" value="Login">
-				<br>
-				<a href="#" id="signup" class="signup">Need an account? Register Here</a>
+				<a href="#" id="signup" class="signup ">Need an account? Register Here</a>
 
 			</form>
 		</div>
 
 	<div id="second">
 			<form action="register.php" method="post">
-
-			<input type="text" class="input-field" name="reg_fname" placeholder="First Name" value="<?php
+				<div class="input-field col s12">
+				<input type="text"  name="reg_fname" id="reg_fname" value="<?php
 				if(isset($_SESSION['reg_fname'])){
 					echo $_SESSION['reg_fname'];
 				}	   
 			?>" required>
+			<label for="reg_fname">First Name</label>
 			<?php 
 				if(in_array("Your first name must between 2 and 25 characters</br>", $error_array)){ 
 					echo "Your first name must between 2 and 25 characters</br>";} 
 			?>
-
-			<input type="text" class="input-field" name="reg_lname" placeholder="Last Name" value="<?php
+				</div>
+			
+					<div class="input-field col s12">
+					<input type="text" name="reg_lname" id="reg_lname" value="<?php
 				if(isset($_SESSION['reg_lname'])){
 					echo $_SESSION['reg_lname'];
 				}	   
 			?>" required>
+			<label for="reg_lname">Last Name</label>
 			<?php 
 				if(in_array("Your last name must between 2 and 25 characters</br>", $error_array)){ 
 					echo "Your last name must between 2 and 25 characters</br>";} 
 			?>
 
-			<input type="email" class="input-field" name="reg_email" placeholder="Email" value="<?php
+					</div>
+			
+					<div class="input-field col s12">
+					<input type="email" name="reg_email" id="reg_email" value="<?php
 				if(isset($_SESSION['reg_email'])){
 					echo $_SESSION['reg_email'];
 				}	   
 			?>" required>
-
-			<input type="email" class="input-field" name="reg_email2" placeholder="Confirm Email" value="<?php
+				<label for="reg_email">Email Address</label>
+					</div>
+			
+				<div class="input-field col s12">
+				<input type="email"  name="reg_email2" id="reg_email2" value="<?php
 				if(isset($_SESSION['reg_email2'])){
 					echo $_SESSION['reg_email2'];
 				}	   
 			?>" required>
+			<label for="reg_email2">Confirm Email</label>
 			<?php 
 				if(in_array("Email already in use<br>", $error_array)){ 
 					echo "Email already in use<br>";
@@ -100,9 +132,16 @@ require'includes/form_handlers/login_handler.php';
 					echo "Emails don't match</br>";
 				} 
 			?>
-
-			<input type="password" class="input-field" name="reg_password" placeholder="password" required>
-			<input type="password" class="input-field" name="reg_password2" placeholder="Confirm Password" required>
+				</div>
+			
+				<div class="input-field col s12">
+				<input type="password" id="reg_password" name="reg_password"  required>
+				<label for="reg_password">Password</label>
+				</div>
+			
+			<div class="input-field col s12">
+			<input type="password" id="reg_password2" name="reg_password2"  required>
+			<label for="reg_password2">Confirm Password</label>
 			<?php 
 				if(in_array("Your passwords do not match</br>", $error_array)){ 
 					echo "Your passwords do not match</br>";
@@ -113,7 +152,9 @@ require'includes/form_handlers/login_handler.php';
 				} 
 			?>
 
-			<input type="submit" name="register_button" value="Register">
+			</div>
+			
+			<input type="submit" class="btn waves-effect waves-light" name="register_button" value="Register">
 			<br>
 
 			<?php
@@ -121,7 +162,7 @@ require'includes/form_handlers/login_handler.php';
 					echo "<span style='color: #14C800;'>You're all set, go ahead and login!</span></br>";
 				} 
 			?>
-			<a href="#" id="signin" class="signin">Already have an account? Sign in here</a>
+			<a href="#" id="signin" class="signin ">Already have an account? Sign in here</a>
 
 		</form>
 	</div>
@@ -136,25 +177,11 @@ require'includes/form_handlers/login_handler.php';
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
    <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-   <script src="script.js" ></script>
+   <script src="assets/js/register.js" ></script>
 
    <script>
 	   
-		$(document).ready(function(){
-			//on click signup, hide login and show registration form
-			$('#signup').click(function(){
-				$('#first').slideUp("slow", function(){
-					$('#second').slideDown("slow");
-				});
-			});
-
-			//on click signin, show login and show registration form
-			$('#signin').click(function(){
-				$('#second').slideUp("slow", function(){
-					$('#first').slideDown("slow");
-				});
-			});
-		});
+		
 	</script>
 
 </body>
