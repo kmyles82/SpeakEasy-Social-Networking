@@ -1,0 +1,116 @@
+@font-face{
+	font-family: 'Bellota-LightItalic';
+	src: url('../fonts/Bellota-LightItalic.otf');
+}
+
+@font-face{
+	font-family: 'Bellota-BoldItalic';
+	src: url('../fonts/Bellota-BoldItalic.otf');
+}
+
+body{
+    background: #e6eae8;
+}
+
+.nav-wrapper{
+    background: #20aae5;
+    border-bottom: 0.25em solid #1894ca;
+    position: fixed;
+    z-index: 10;
+}
+
+.brand-logo{
+    font-family: 'Bellota-BoldItalic', sans-serif;
+    margin-left: 10px;
+    position: relative;
+    
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.sidenav li:first-child a{
+    height: 60px;
+}
+
+.sidenav li img{
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+}
+
+.wrapper{
+    margin: 0 auto;
+    position: relative;
+    padding: 0 10px;
+    width: 75%;
+    min-width: 950px;
+}
+
+.column{
+    background: #fff;
+    padding: 10px;
+}
+
+.column a img{
+    height: 125px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.card.small{
+    width: 250px;
+    height: 150px;
+    float: left;
+    margin-bottom: 20px;
+}
+
+.card.large{
+    height: 100%;
+}
+
+.user_details_left_right{
+    width: 125px;
+    display: inline-block;
+    position: absolute;
+}
+
+.main_column{
+    float: right;
+    width: 70%;
+    z-index: -1;
+    
+}
+
+.post_form{
+    width: 100%;
+    padding: 10px;
+}
+
+.post_form textarea{
+    height: 60px;
+    border-radius: 3px;
+}
+
+.post_form input[type="submit"]{
+    color: #fff;
+}
+
+.status_post{
+    width: 96%;
+    font-size: 15px;
+    padding: 0 5px;
+    min-height: 75px;
+}
+
+.post_profile_pic{
+    float: left;
+    margin-right: 7px;
+}
+
+.post_profile_pic img{
+    border-radius: 5px;
+}
+
+
