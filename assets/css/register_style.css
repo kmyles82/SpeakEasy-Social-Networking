@@ -1,17 +1,43 @@
+@font-face{
+	font-family: 'Bellota-LightItalic';
+	src: url('../fonts/Bellota-LightItalic.otf');
+}
+
+@font-face{
+	font-family: 'Bellota-BoldItalic';
+	src: url('../fonts/Bellota-BoldItalic.otf');
+}
+
+.btn{
+	background: #3498db;
+}
+
+.btn:hover{
+	background: #3498db;
+}
+
+html,
+body{
+	height: 100vh;
+	min-height: 100vh;
+}
+
 .wrapper{
 	background-image: url("../images/backgrounds/Desktop.jpg");
-	background-size: cover;
+	background-size: 100%;
 	background-repeat: no-repeat;
 	width: 100vw;
 	height: 100vh;
+	min-height: 120%;
 	min-width: 950px;
 }
 
 .login_box{
+	font-family: 'Bellota-LightItalic', sans-serif;
 	position: relative;
 	margin-right: auto;
 	margin-left: auto;
-	top: 7%;
+	top: 5%;
 	width: 35%;
 	background: #fff;
 	border: 1px solid #ededed;
@@ -21,9 +47,23 @@
 }
 
 .login_header{
+	font-family: 'Bellota-LightItalic', sans-serif;
 	width: 100%;
 	height: 90px;
-	background: #ff0000;
+	background: #3498db;
+	color: #fff;
+	text-align: center;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.login_header h1{
+	font-family: 'Bellota-BoldItalic', sans-serif;
+	margin-top: 0;
+	margin-bottom: 0;
+	color: #2c6c96;
+	text-shadow: #73b6e2 0.5px 0.5px 0px;
+	font-size: 250%;
 }
 
 form{
@@ -33,4 +73,12 @@ form{
 a{
 	text-decoration: none;
 	color: #3498db;
+}
+
+a:hover{
+	text-decoration: none;
+}
+
+#second{
+	display: none;
 }
