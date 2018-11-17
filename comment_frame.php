@@ -1,13 +1,8 @@
-<html>
-<head>
-<title></title>
-<link rel="stylesheet" href="../assets/css/style.css" type="text/css">
-</head>
-<body>
 <?php
 require'config/config.php';
 include('includes/classes/User.php');
-      include('includes/classes/Post.php');
+include('includes/classes/Post.php');
+include('includes/classes/Notification.php');
 
 if(isset($_SESSION['username'])){
     $userLoggedIn = $_SESSION['username'];
@@ -18,6 +13,28 @@ if(isset($_SESSION['username'])){
 }
 
 ?>
+
+<html>
+<head>
+<title></title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- Compiled and minified CSS -->
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      	
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../assets/css/style.css" type="text/css">
+<style>
+        *{
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    
+
 
 <script>
     function toggle(){
@@ -55,7 +72,7 @@ if(isset($_SESSION['username'])){
 
 <form action="comment_frame.php?post_id=<?php echo $post_id; ?>" id="comment_form" name="post_comment<?php echo $post_id; ?>" method="post">
     <textarea name="post_body" id="post_body" cols="30" rows="10"></textarea>
-    <input type="submit" name="postComment<?php echo $post_id; ?>" value="Post">
+    <input type="submit" name="postComment<?php echo $post_id; ?>" value="Post" class="btn waves-effect blue lighten-1" id="comment_button">
 </form>
 
 <!--Load comments-->
@@ -143,9 +160,9 @@ if($count != 0){
 
         ?>
         <div class="comment_section">
-            <a href="<?php echo $posted_by; ?>" target="_parent"><img src="<?php echo $user_obj->getProfilePic(); ?>" alt="" title="<?php echo $post_by; ?>" style="float:left; " height="30px"></a>
+            <a href="<?php echo $posted_by; ?>" target="_parent"><img src="<?php echo $user_obj->getProfilePic(); ?>" alt="" title="<?php echo $posted_by; ?>" style="float:left; " height="30px"></a>
             <a href="<?php echo $posted_by; ?>" target="_parent">
-                <b><?php echo $user_obj->getFirstAndLastName; ?></b>
+                <b><?php echo $user_obj->getFirstAndLastName(); ?></b>
             </a>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <?php 
@@ -153,7 +170,7 @@ if($count != 0){
             ?>
             <hr>
         </div>
-        
+
         <?php
     }
 }
@@ -162,7 +179,11 @@ if($count != 0){
 
 
     
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
 

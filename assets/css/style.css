@@ -102,6 +102,7 @@ a:hover{
     font-size: 15px;
     padding: 0 5px;
     min-height: 75px;
+    cursor: pointer;
 }
 
 .post_profile_pic{
@@ -112,4 +113,47 @@ a:hover{
 .post_profile_pic img{
     border-radius: 5px;
 }
+
+#comment_iframe{
+    max-height: 250px;
+    width: 100%;
+}
+
+.comment_section{
+    padding: 0 5px 5px 5px;
+}
+
+.comment_section img{
+    margin: 0 3px 3px 3px;
+    border-radius: 3px;
+}
+
+#comment_form textarea{
+    border-color: #d3d3d3;
+    width: 85%;
+    height: 40px;
+    border-radius: 5px;
+    color: #616060;
+    font-size: 14px;
+    margin: 3px 3px 3px 5px;
+    background: #fff;
+}
+
+#comment_form .btn{
+    position: absolute;
+    height: 40px;
+    margin-top: 3px;
+}
+
+#comment_button{
+    color: #fff;
+    position: relative;
+    top: 10px;
+}
+
+
+
+
+
+
 
