@@ -117,6 +117,7 @@ a:hover{
 #comment_iframe{
     max-height: 250px;
     width: 100%;
+    margin-top: 10px;
 }
 
 .comment_section{
@@ -151,7 +152,12 @@ a:hover{
     top: 10px;
 }
 
-
+.newsfeedPostOptions{
+    padding: 0;
+    text-decoration: none;
+    color: #20aae5;
+    border: none;
+}
 
 
 
